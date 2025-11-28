@@ -134,6 +134,16 @@ int main() {
         Orange, Red,   Orange,
         Orange, Black, Orange,
     }, Red);
+    Grid tunnel({
+        Black,  Orange, Pink,
+        Orange, Orange, Orange,
+        Pink,   Orange, Orange,
+    }, Orange);
+    Grid tradingPost({
+        Pink, Gray, Gray,
+        Gray, Yellow, Yellow,
+        Gray, Yellow, Yellow,
+    }, Yellow);
     Grid theTomb({
         Gray,   Purple, Gray,
         Gray,   Pink,   Gray,
@@ -145,13 +155,12 @@ int main() {
         Green, Yellow,  Green,
     }, Black);
     
-
-    auto bestSolution = Solver(theTomb).Solve();
+    auto bestSolution = Solver(tradingPost).Solve();
     std::cout << "Best solution (" << bestSolution.size() << " moves):" << std::endl;
     for (const auto& [x, y] : bestSolution) {
         std::cout << "(" << x << ", " << y << ") ";
     }
     std::cout << std::endl;
 
-    SolveInteractively(theTomb);
+    SolveInteractively(tradingPost);
 }

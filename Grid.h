@@ -155,6 +155,4 @@ private:
 
     Color _grid[9] = {};
     Color _target = Invalid;
-
-    friend struct State;
 };
