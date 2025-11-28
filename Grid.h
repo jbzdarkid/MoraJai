@@ -107,7 +107,6 @@ struct Grid {
             break;
         case Pink: // Rotate clockwise... yikes.
         {
-            // Let's start with a bad implementation. TODO: Probably some more performant way(s) of doing this?
             static const std::pair<int, int> adjacencies[8] = { {-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0} };
             
             // Save each cell's color, then write in the previous color
@@ -130,8 +129,20 @@ struct Grid {
             }
             break;
         }
-        case White:
-            throw std::runtime_error("Not implemented yet -- no data");
+        case White: // Change any adjacent gray squares to white, or white squares to gray.
+        {
+            static const std::pair<int, int> adjacencies[4] = { {-1, 0}, {0, -1}, {1, 0}, {0, 1} };
+            for (const auto& [dx, dy] : adjacencies) {
+                Color color = Get(x + dx, y + dy);
+                if (color == Invalid) continue;
+                if (color == White) Set(x + dx, y + dy, Gray);
+                else if (color == Gray) Set(x + dx, y + dy, White);
+                else throw std::runtime_error("Not implemented yet -- no data");
+            }
+
+            Set(x, y, Gray);
+            break;
+        }
         case Gray: // Does nothing, I think.
             break;
         case Black: // Cycle colors to the right.
