@@ -19,7 +19,6 @@ struct Solver {
         // First, brute-force the problem space to find our best solution.
         bool victory = SolveRecursive(_initial, 0);
         if (!victory) return {}; // Puzzle was somehow unsolvable.
-        std::cout << "Puzzle is solvable; best solution has <= " << _bestDepth << " moves" << std::endl;
 
         _visited = nullptr; // Regain memory
 

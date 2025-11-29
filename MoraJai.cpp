@@ -129,45 +129,57 @@ static void SolveInteractively(Grid& grid) {
 }
 
 int main() {
-    Grid closedExhibit({
-        Orange, Black, Orange,
-        Orange, Red,   Orange,
-        Orange, Black, Orange,
-    }, Red);
-    Grid tunnel({
-        Black,  Orange, Pink,
-        Orange, Orange, Orange,
-        Pink,   Orange, Orange,
-    }, Orange);
-    Grid masterBedroom({
-        White,  Gray,   White,
-        White,  Gray,   Gray,
-        Gray,   Gray,   White,
-    }, White);
-    Grid tradingPost({
-        Pink,   Gray,   Gray,
-        Gray,   Yellow, Yellow,
-        Gray,   Yellow, Yellow,
-    }, Yellow);
-    Grid theTomb({
-        Gray,   Purple, Gray,
-        Gray,   Pink,   Gray,
-        Purple, Purple, Purple,
-    }, Purple);
-    Grid sanctumRoom1({
-        Green, Black,   Green,
-        Black, Black,   Black,
-        Green, Yellow,  Green,
-    }, Black);
+    std::pair<std::string, Grid> grids[] = {
+        { "Closed Exhibit", Grid({
+            Orange, Black, Orange,
+            Orange, Red,   Orange,
+            Orange, Black, Orange,
+        }, Red) },
+        { "Tunnel", Grid({
+            Black,  Orange, Pink,
+            Orange, Orange, Orange,
+            Pink,   Orange, Orange,
+        }, Orange) },
+        { "Master Bedroom", Grid({
+            White,  Gray,   White,
+            White,  Gray,   Gray,
+            Gray,   Gray,   White,
+        }, White) },
+        { "Solarium", Grid({
+            Green,  Gray,   Yellow,
+            Green,  Yellow, Green,
+            Yellow, Gray,   Green,
+        }, Green) },
+        { "Trading Post", Grid({
+            Pink,   Gray,   Gray,
+            Gray,   Yellow, Yellow,
+            Gray,   Yellow, Yellow,
+        }, Yellow) },
+        { "The Tomb", Grid({
+            Gray,   Purple, Gray,
+            Gray,   Pink,   Gray,
+            Purple, Purple, Purple,
+        }, Purple) },
+        { "The Underpass", Grid({
+            Black,  Black,  Black,
+            Gray,   Black,  Gray,
+            Yellow, Gray,   Yellow,
+        }, Black) },
+        { "Sanctum Room 1", Grid({
+            Green, Black,   Green,
+            Black, Black,   Black,
+            Green, Yellow,  Green,
+        }, Black) },
+    };
     
-    Grid grid = masterBedroom;
-
-    auto bestSolution = Solver(grid).Solve();
-    std::cout << "Best solution (" << bestSolution.size() << " moves):" << std::endl;
-    for (const auto& [x, y] : bestSolution) {
-        std::cout << "(" << x << ", " << y << ") ";
+    for (const auto& [name, grid] : grids) {
+        auto bestSolution = Solver(grid).Solve();
+        std::cout << "Best solution for " << name << " is " << bestSolution.size() << " moves:" << std::endl;
+        for (const auto& [x, y] : bestSolution) {
+            std::cout << "(" << x << ", " << y << ") ";
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
 
-    SolveInteractively(grid);
+    // SolveInteractively();
 }
